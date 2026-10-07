@@ -1,0 +1,15 @@
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.dll
+*.exe
+*.pdb
+BepInEx/
+*.cfg
+product_list.json
+.env
+.env.*
+
+__pycache__/

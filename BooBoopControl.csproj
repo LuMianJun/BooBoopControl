@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <LangVersion>10.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <PlatformTarget>x64</PlatformTarget>
+    <AssemblyName>BooBoopControl</AssemblyName>
+    <RootNamespace>BooBoopBridge</RootNamespace>
+    <Version>1.2.2</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.2.2.0</FileVersion>
+  </PropertyGroup>
+  <ItemGroup><Compile Include="src/**/*.cs" /></ItemGroup>
+</Project>
