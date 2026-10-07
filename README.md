@@ -1,8 +1,8 @@
 # BooBoopControl
 
-BooBoopControl 是独立的 Boo Boop 硬件控制类库，当前实现腰带骑士二代（FN010-RX）的发现、连接、伸缩、振动、双输出停止及异步释放。它不依赖游戏、Unity 或 BepInEx，也没有插件入口；仅将 DLL 放入游戏插件目录不会启动设备。
+BooBoopControl 是独立的 Boo Boop 硬件控制类库，当前实现腰带骑士二代（FN010-RX）的发现、连接、伸缩、振动、双输出停止及异步释放。可用于桌面应用、工具、游戏插件或其他 .NET 项目。由接入项目调用接口完成设备初始化与控制。
 
-产品版本 **1.2.2**，目标 **net6.0 / C# 10 / x64**，程序集 `BooBoopControl.dll`，命名空间沿用 `BooBoopBridge`，AssemblyVersion 为 `1.0.0.0`，API 主版本为 1。游戏状态由独立项目 **SecretFlasherManaka For EveryThing**（`SecretFlasherManaka.ForEveryThing`）提供，整合策略由 `SecretFlasherManaka.BooBoopBridge` 总项目负责。
+产品版本 **1.2.2**，目标 **net6.0 / C# 10 / x64**，程序集 `BooBoopControl.dll`，命名空间沿用 `BooBoopBridge`，AssemblyVersion 为 `1.0.0.0`，API 主版本为 1。
 
 ## 当前能力
 
@@ -91,8 +91,6 @@ dotnet build .\BooBoopControl.csproj -c Release
 - DisposeAsync 的双停属于尽力清理。原厂进程退出无法确认时，任务可能失败且 State 保持 Disposing；再次调用仍返回同一清理 Task，不会重新执行清理。
 - 软件写入成功只证明数据写入原厂进程，不证明实际动作或停止。崩溃、强杀或链路故障下不能保证物理停止。
 
-本次路径通用化修改了路径解析与传入方式，保留发现、协议、动作和停止逻辑；没有运行原厂 EXE、扫描蓝牙或控制硬件。完整组合用法见总项目的 README。
-
 ## 自定义安装路径
 
 旧构造签名保留，消费者可使用新增重载：
@@ -122,7 +120,13 @@ BooBoopOptions 的 GetHostExecutablePath / GetProductCachePath / GetHostWorkingD
 | FN010-RX | 腰带骑士二代 | 振动、伸缩协议编号 0..9、双停 |
 | 其他型号 | — | 尚未实现 |
 
-兼容新型号若公共能力语义不变，游戏信号插件可以复用；新增位置 / 行程能力时再设计能力接口和 Bridge 映射。
+新增型号时可复用公共控制接口；新增位置 / 行程等能力时，可扩展接口，由接入项目决定如何使用。
+
+## 项目接入
+
+在你的 .NET 项目中引用 `BooBoopControl.dll`，按需要调用设备发现、连接、振动、伸缩和停止接口。输入可以来自界面操作、游戏状态、自动化规则或其他数据源。
+
+[SecretFlasherManaka-BooBoopBridge](https://github.com/LuMianJun/SecretFlasherManaka-BooBoopBridge) 是一个接入示例，将游戏状态映射为 BooBoop 设备指令。
 
 ## 许可证
 
